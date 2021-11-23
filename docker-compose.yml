@@ -2,18 +2,41 @@ version: '2.1'
 
 services:
   pbs:
-    image: ayufan/proxmox-backup-server:latest
+    image: pbs:1.1.13
     network_mode: host
     mem_limit: 2G
     volumes:
       - pbs_etc:/etc/proxmox-backup
       - pbs_logs:/var/log/proxmox-backup
       - pbs_lib:/var/lib/proxmox-backup
+      - backups:/backups
     restart: unless-stopped
     stop_signal: SIGHUP
+    environment:
+            TZ: Europe/Berlin
 
 volumes:
+  backups:
+    driver: local
+    driver_opts:
+      type: ''
+      o: bind
+      device: /srv/files/pve-backup-server-dockerfiles/pbs_backups
   pbs_etc:
+    driver: local
+    driver_opts:
+      type: ''
+      o: bind
+      device: /srv/files/pve-backup-server-dockerfiles/pbs_etc
   pbs_logs:
+    driver: local
+    driver_opts:
+      type: ''
+      o: bind
+      device: /srv/files/pve-backup-server-dockerfiles/pbs_logs
   pbs_lib:
-
+    driver: local
+    driver_opts:
+      type: ''
+      o: bind
+      device: /srv/files/pve-backup-server-dockerfiles/pbs_lib
