@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -6,9 +6,12 @@ RUN apt-get update -y
 RUN apt-get dist-upgrade -y
 RUN apt-get install -y wget apt-utils
 
-RUN wget http://download.proxmox.com/debian/proxmox-ve-release-6.x.gpg -O /etc/apt/trusted.gpg.d/proxmox-ve-release-6.x.gpg
+# no idea why but this fails if it is installed along with proxmox-backup-server
+RUN apt-get install -y ifupdown2
 
-RUN echo "deb http://download.proxmox.com/debian/pbs buster pbs-no-subscription" >/etc/apt/sources.list.d/pbs.list
+RUN wget https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg -O /etc/apt/trusted.gpg.d/proxmox-ve-release-7.x.gpg
+
+RUN echo "deb http://download.proxmox.com/debian/pbs bullseye pbs-no-subscription" >/etc/apt/sources.list.d/pbs.list
 RUN apt-get update -y
 
 RUN apt-get install -y proxmox-backup-server
