@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   pbs:
-    image: pbs:2.4.4
+    image: pbs:3.1.4
     network_mode: host
     mem_limit: 2G
     volumes:
