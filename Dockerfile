@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -9,12 +9,12 @@ RUN apt-get install -y wget apt-utils
 # no idea why but this fails if it is installed along with proxmox-backup-server
 RUN apt-get install -y ifupdown2
 
-RUN wget https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg -O /etc/apt/trusted.gpg.d/proxmox-ve-release-7.x.gpg
+RUN wget https://enterprise.proxmox.com/debian/proxmox-release-bookworm.gpg -O /etc/apt/trusted.gpg.d/proxmox-ve-release-8.x.gpg
 
-RUN echo "deb http://download.proxmox.com/debian/pbs bullseye pbs-no-subscription" >/etc/apt/sources.list.d/pbs.list
+RUN echo "deb http://download.proxmox.com/debian/pbs bookworm pbs-no-subscription" >/etc/apt/sources.list.d/pbs.list
 RUN apt-get update -y
 
-RUN apt-get install -y proxmox-backup-server
+RUN apt-get install -y proxmox-backup-server=3.1.4-1
 
 # Add default configs
 ADD /pbs/ /etc/proxmox-backup/
