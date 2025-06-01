@@ -14,7 +14,7 @@ RUN wget https://enterprise.proxmox.com/debian/proxmox-release-bookworm.gpg -O /
 RUN echo "deb http://download.proxmox.com/debian/pbs bookworm pbs-no-subscription" >/etc/apt/sources.list.d/pbs.list
 RUN apt-get update -y
 
-RUN apt-get install -y proxmox-backup-server=3.1.4-1
+RUN apt-get install -y proxmox-backup-server=3.3.2-1
 
 # Add default configs
 ADD /pbs/ /etc/proxmox-backup/
